@@ -27,11 +27,15 @@ alienCrew.forEach((e ,index) =>{
 
     // console.log(alienCrew.includes(alienCrew[alienId-1]));
  function check(index, accuracy,firePower ){
+ const attackStatus = document.querySelector('#meseage h2')
+ console.log(attackStatus)
+
     if (alienCrew.includes(alienCrew[index]) === true){
         if (Math.random() >= accuracy) {
             alienCrew[index].hull -= firePower;
             if (alienCrew[index].hull <= 0) {
                 console.log(`the ship with id of ${alienId} has been destroyed`);
+                attackStatus.innerText = `the ship with id of ${alienId} has been destroyed`;
                 alienCrew.splice(`${index}`,1);
                 console.log(alienCrew)
                 let test = `.a${alienId}`
@@ -41,6 +45,7 @@ alienCrew.forEach((e ,index) =>{
                  // console.log(alienCrew[alienId-1].hull)
             } else {
                 console.log('you have hit the alien ship but it still alive, it gonna hit you back');
+                attackStatus.innerText = 'you have hit the alien ship but it still alive, it gonna hit you back';
                 console.log(alienCrew[index].hull);
              
 
@@ -72,18 +77,22 @@ class AlienShip {
 
     }
     attack() {
+        const attackStatus = document.querySelector('#meseage h2')
+        console.log(attackStatus)
         if (Math.random() > this.accuracy) {
             motherShip.hull -= this.firePower;
             const targetMother = document.querySelector('#mother-ship div p:nth-of-type(1)');
             const hullOfMother = targetMother.firstChild;
             hullOfMother.textContent = `hull: ${motherShip.hull}`
             console.log('the mother ship have been hit');
-            console.log(motherShip.hull);
+            attackStatus.innerText = 'the mother ship have been hit';
+            console.log(motherShip.hull);           
             if (motherShip.hull <=0){
                 alert('You lost')
             }
         } else {
             console.log('This alien ship has missed it is your turn again')
+            attackStatus.innerText = 'This alien ship has missed it is your turn again';
         }
     }
 }
