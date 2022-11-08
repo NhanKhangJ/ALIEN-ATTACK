@@ -75,20 +75,22 @@ alienCrew.forEach(e => {
     const alienHull = document.createElement('p');
     const alienFirePower = document.createElement('p');
     const alienAccuracy = document.createElement('p');
-    alienDiv.classList = `a${e.id}`;
+    // alienDiv.classList = `a${e.id}`;
     alienId.textContent = `id: ${e.id}`
     alienHull.textContent = `hull: ${e.hull}`;
     alienFirePower.textContent = `firePower: ${e.firePower}`;
     alienAccuracy.textContent = `accuracy: ${Math.round(e.accuracy * 100)}%`;
     alienDiv.append(alienId, alienHull, alienFirePower, alienAccuracy);
-    document.querySelector('#alien-ship').appendChild(alienDiv);
+    
 
     const alienObject = document.createElement('div');
     const alienImg = document.createElement('img');
-    alienImg.setAttribute('src', './imgaes/alienship.png')
-    
+    alienImg.setAttribute('src', './images/alienship.png');
+    alienObject.classList=`a${e.id}`;
+
+    alienObject.append(alienDiv, alienImg);
  
- 
+    document.querySelector('#alien-ship').appendChild(alienObject);
 });
 
 const motherShip = new MotherShip(20, 5, 0.7);
