@@ -68,6 +68,8 @@ for (i = 1; i <= 6; i++) {
 
 
 alienCrew.forEach(e => {
+
+
     const alienDiv = document.createElement('div');
     const alienId = document.createElement('p')
     const alienHull = document.createElement('p');
@@ -80,6 +82,13 @@ alienCrew.forEach(e => {
     alienAccuracy.textContent = `accuracy: ${Math.round(e.accuracy * 100)}%`;
     alienDiv.append(alienId, alienHull, alienFirePower, alienAccuracy);
     document.querySelector('#alien-ship').appendChild(alienDiv);
+
+    const alienObject = document.createElement('div');
+    const alienImg = document.createElement('img');
+    alienImg.setAttribute('src', './imgaes/alienship.png')
+    
+ 
+ 
 });
 
 const motherShip = new MotherShip(20, 5, 0.7);

@@ -19,8 +19,33 @@ body{
 #mother-ship{
     width: 100px;
     height: 100px;
-    background-color: rgb(172, 89, 129);
+ 
 }
+
+#mother-ship div{
+    position: absolute;
+    background-color: rgb(172, 89, 129);
+    z-index: 1;
+    border-radius: 10%;
+    opacity: 0%;
+}
+#mother-ship div:hover{
+    opacity: 100%;
+}
+
+#mother-ship p{
+    color: white;
+    
+}
+#mother-ship img{
+  position:absolute;
+  width: 200px;
+  
+}
+
+  
+
+
 #alien-ship{
     display: flex;
     flex-direction: column;
@@ -29,7 +54,7 @@ body{
     width: 100px;
 }
 #alien-ship div{
-
+    
     background-color: bisque;
     text-align: center;
 }
