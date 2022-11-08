@@ -44,20 +44,37 @@ alienCrew.forEach((e ,index) =>{
                 selectedDiv.remove();
                  // console.log(alienCrew[alienId-1].hull)
             } else {
-                console.log('you have hit the alien ship but it still alive, it gonna hit you back');
-                attackStatus.innerText = 'you have hit the alien ship but it still alive, it gonna hit you back';
-                console.log(alienCrew[index].hull);
-             
 
+                function keepGoing(){
+                    attackStatus.innerText = 'it gonna hit you back';
+                } 
+                setTimeout(keepGoing, 4000);
+                console.log('you have hit the alien ship but it still alive, it gonna hit you back');
+                attackStatus.innerText = 'you have hit the alien ship but it still alive';
+                console.log(alienCrew[index].hull);
+            
                 alienCrew[index].attack();
-        
                 let test = `.a${alienId}`
                 const selectedDiv = document.querySelector(test).childNodes;
                 const alienHull = selectedDiv[1];
                 alienHull.textContent = `hull: ${alienCrew[index].hull}`;
+             
+
             }
         } else {
+
+            // // function keepGoing(){
+            // //     attackStatus.innerText = 'it gonna hit you back';
+            // //     console.log('it gonna hit you back')
+            // // } 
+            // // setTimeout(keepGoing, 4000);
+            // // alienCrew[index].attack();
+            // setTimeout(alienCrew[index].attack(), 4000);
+            // console.log('You have miss the attack and it gonna hit you back');
+            // attackStatus.innerText = 'You have miss the attack and it gonna hit you back';
+            // // setTimeout(alienCrew[index].attack(), 4000);
             console.log('You have miss the attack');
+            attackStatus.innerText = 'You have miss the attack';
             alienCrew[index].attack();
         }
     } else{
@@ -85,14 +102,25 @@ class AlienShip {
             const hullOfMother = targetMother.firstChild;
             hullOfMother.textContent = `hull: ${motherShip.hull}`
             console.log('the mother ship have been hit');
-            attackStatus.innerText = 'the mother ship have been hit';
+            function keepGoing(){
+                attackStatus.innerText = 'The mother ship has been hit and it is your turn again';
+            } 
+            setTimeout(keepGoing, 4000);
+            
+
+            // attackStatus.innerText = 'the mother ship have been hit';
             console.log(motherShip.hull);           
             if (motherShip.hull <=0){
                 alert('You lost')
             }
         } else {
-            console.log('This alien ship has missed it is your turn again')
-            attackStatus.innerText = 'This alien ship has missed it is your turn again';
+            console.log('This alien ship has missed')
+            attackStatus.innerText ='This alien ship has missed'; 
+            function keepGoing(){
+                attackStatus.innerText = 'It is your turn again';
+            } 
+            setTimeout(keepGoing, 4000);
+            // attackStatus.innerText = 'This alien ship has missed it is your turn again';
         }
     }
 }
@@ -151,4 +179,13 @@ element.addEventListener('click', (event)=>{
 })
 
 
+const retreat = document.querySelector('#retreat-div');
 
+retreat.addEventListener('click', () =>{
+    const answer = prompt('Are you sure that will want to retreat, They will bring another crew to attack again!')
+    if(answer === 'yes'){
+        window.reload();
+    } else{
+      alert('never give up')
+    }
+})
