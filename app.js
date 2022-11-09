@@ -16,24 +16,32 @@ class MotherShip {
                 if (Math.random() >= accuracy) {
                     alienCrew[index].hull -= firePower;
                     if (alienCrew[index].hull <= 0) {
+                        function keepGoing() {
+                            attackStatus.innerText = 'Good Job Commander';
+                        }
+                        setTimeout(keepGoing, 2000);
                         attackStatus.innerText = `the alien ship with id of ${alienId} has been destroyed`;
                         alienCrew.splice(`${index}`, 1);
                         let test = `.a${alienId}`
                         const selectedDiv = document.querySelector(test)
                         selectedDiv.remove();
                     } else {
-                        function keepGoing() {
-                            attackStatus.innerText = 'it going to hit you back';
-                        }
-                        setTimeout(keepGoing, 4000);
-                        attackStatus.innerText = 'the mothership have hit the alien ship but it still alive';
-                        alienCrew[index].attack();
                         let test = `.a${alienId}`
                         const selectedDiv = document.querySelector(test).childNodes;
-                        const alienHull = selectedDiv[1];
-                        alienHull.textContent = `hull: ${alienCrew[index].hull}`;
+                        const alienHull = selectedDiv[0].childNodes;
+                        alienHull[1].textContent = `hull: ${alienCrew[index].hull}`;
+                        function keepGoing() {
+                            attackStatus.innerText = 'The alien ship is going to hit you back';
+                        }
+                        setTimeout(keepGoing, 2000);
+                        attackStatus.innerText = 'the mothership have hit the alien ship but it still alive';
+                        alienCrew[index].attack();
                     }
                 } else {
+                    function keepGoing() {
+                        attackStatus.innerText = 'The alien ship is going to return the favor';
+                    }
+                    setTimeout(keepGoing, 2000);
                     attackStatus.innerText = 'the mothership has miss the target';
                     alienCrew[index].attack();
                 }
@@ -68,12 +76,12 @@ class AlienShip {
                 alert('You lost')
             }
         } else {
-            attackStatus.innerText = 'This alien ship has missed target on the mother ship';
-
+            // attackStatus.innerText = 'This alien ship has missed target on the mother ship';
             function keepGoing() {
-                attackStatus.innerText = 'It is your turn again';
+                attackStatus.innerText = 'This alien ship has missed target on the mother ship and it is your turn again';
             }
             setTimeout(keepGoing, 4000);
+            
         }
     }
 }
@@ -134,3 +142,9 @@ retreat.addEventListener('click', () => {
         alert('never give up')
     }
 })
+
+// let test = `.a${4}`
+// const selectedDiv = document.querySelector(test).childNodes;
+// console.log(selectedDiv)
+// const alienHull = selectedDiv[0].childNodes;
+// console.log(alienHull[1].textContent);
