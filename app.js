@@ -5,35 +5,34 @@ class MotherShip {
         this.accuracy = accuracy
     }
     attack(alienId) {
-
+        let attackStatus = document.querySelector('#meseage h2')
         alienCrew.forEach((e, index) => {
-            e["id"] == alienId ? check(index, motherShip.accuracy, motherShip.firePower) : null;
+            e["id"] == alienId ? check(index, this.accuracy, this.firePower) : null;
         })
-
-        function check(index, accuracy, firePower) {
-            const attackStatus = document.querySelector('#meseage h2')
+         function check(index, accuracy, firePower) {
             if (alienCrew.includes(alienCrew[index]) === true) {
                 if (Math.random() >= accuracy) {
                     alienCrew[index].hull -= firePower;
+                    let test = `.a${alienId}`;
                     if (alienCrew[index].hull <= 0) {
                         function keepGoing() {
                             attackStatus.innerText = 'Good Job Commander';
                         }
-                        setTimeout(keepGoing, 2000);
+                        setTimeout(keepGoing, 3000);
                         attackStatus.innerText = `the alien ship with id of ${alienId} has been destroyed`;
                         alienCrew.splice(`${index}`, 1);
-                        let test = `.a${alienId}`
+                        // let test = `.a${alienId}`
                         const selectedDiv = document.querySelector(test)
                         selectedDiv.remove();
                     } else {
-                        let test = `.a${alienId}`
+                        // let test = `.a${alienId}`
                         const selectedDiv = document.querySelector(test).childNodes;
                         const alienHull = selectedDiv[0].childNodes;
                         alienHull[1].textContent = `hull: ${alienCrew[index].hull}`;
                         function keepGoing() {
                             attackStatus.innerText = 'The alien ship is going to hit you back';
                         }
-                        setTimeout(keepGoing, 2000);
+                        setTimeout(keepGoing, 3000);
                         attackStatus.innerText = 'the mothership have hit the alien ship but it still alive';
                         alienCrew[index].attack();
                     }
@@ -41,13 +40,11 @@ class MotherShip {
                     function keepGoing() {
                         attackStatus.innerText = 'The alien ship is going to return the favor';
                     }
-                    setTimeout(keepGoing, 2000);
+                    setTimeout(keepGoing, 3000);
                     attackStatus.innerText = 'the mothership has miss the target';
                     alienCrew[index].attack();
                 }
-            } else {
-                console.log('wrong target or input has been destroyed')
-            }
+            } 
         }
     }
 }
@@ -62,6 +59,7 @@ class AlienShip {
     }
     attack() {
         const attackStatus = document.querySelector('#meseage h2')
+      
         if (Math.random() > this.accuracy) {
             motherShip.hull -= this.firePower;
             const targetMother = document.querySelector('#mother-ship div p:nth-of-type(1)');
@@ -71,7 +69,7 @@ class AlienShip {
             function keepGoing() {
                 attackStatus.innerText = 'The mother ship has been hit and it is your turn again';
             }
-            setTimeout(keepGoing, 4000);
+            setTimeout(keepGoing, 5000);
             if (motherShip.hull <= 0) {
                 alert('You lost')
             }
@@ -80,8 +78,7 @@ class AlienShip {
             function keepGoing() {
                 attackStatus.innerText = 'This alien ship has missed target on the mother ship and it is your turn again';
             }
-            setTimeout(keepGoing, 4000);
-            
+            setTimeout(keepGoing, 5000);
         }
     }
 }
@@ -93,12 +90,12 @@ function getRandomArbitrary(min, max) {
 function getRandomInt(min, max) {
     min = Math.ceil(min);
     max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min + 1) + min); 
 }
 const alienCrew = []
 for (i = 1; i <= 6; i++) {
+    // let {...newAlien} = new AlienShip(i);
     let newAlien = new AlienShip(i);
-    // let newAlien = new AlienShip(i);
     alienCrew.push(newAlien)
 }
 
@@ -143,8 +140,3 @@ retreat.addEventListener('click', () => {
     }
 })
 
-// let test = `.a${4}`
-// const selectedDiv = document.querySelector(test).childNodes;
-// console.log(selectedDiv)
-// const alienHull = selectedDiv[0].childNodes;
-// console.log(alienHull[1].textContent);
