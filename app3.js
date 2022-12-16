@@ -1,66 +1,3 @@
-class MotherShip {
-    constructor(hull, firePower, accuracy) {
-        this.hull = hull;
-        this.firePower = firePower;
-        this.accuracy = accuracy
-    }
-    attack(alienId) {
-      const chosenAlien =  alienCrew.find((e) =>{
-        const objectChosen = e;
-
-          if(objectChosen.id == alienId){
-            return objectChosen
-          }  
-        })
-  
-   let alienIndex = alienCrew.indexOf(chosenAlien);
-console.log(alienIndex)
-
-        //  function check(index, accuracy, firePower) {
-            const attackStatus = document.querySelector('#meseage h2')
-            
-            // if (alienCrew.includes(alienCrew[alienIndex]) === true) {
-                if (Math.random() >= this.accuracy) {
-                    let alienIndex = alienCrew.indexOf(chosenAlien);
-                    alienCrew[alienIndex].hull -= this.firePower;
-                    let test = `.a${chosenAlien.id}`;
-                    if (alienCrew[alienIndex].hull <= 0) {
-                        function keepGoing() {
-                            attackStatus.innerText = 'Good Job Commander';
-                        }
-                        setTimeout(keepGoing, 3000);
-                        attackStatus.innerText = `the alien ship with id of ${chosenAlien.id} has been destroyed`;
-                        alienCrew.splice(`${alienIndex}`, 1);
-                        // let test = `.a${alienId}`
-                        const selectedDiv = document.querySelector(test)
-                        selectedDiv.remove();
-                    } else {
-                        // let test = `.a${alienId}`
-                        const selectedDiv = document.querySelector(test).childNodes;
-                        const alienHull = selectedDiv[0].childNodes;
-                        alienHull[1].textContent = `hull: ${alienCrew[alienIndex].hull}`;
-                        function keepGoing() {
-                            attackStatus.innerText = 'The alien ship is going to hit you back';
-                        }
-                        setTimeout(keepGoing, 3000);
-                        attackStatus.innerText = 'the mothership have hit the alien ship but it still alive';
-                        alienCrew[alienIndex].attack();
-                    }
-                } else {
-                    function keepGoing() {
-                        attackStatus.innerText = 'The alien ship is going to return the favor';
-                    }
-                    setTimeout(keepGoing, 3000);
-                    attackStatus.innerText = 'the mothership has miss the target';
-                    console.log(alienIndex)
-                    const index = alienIndex
-                    alienCrew[index].attack();
-                }
-            // } 
-        // }
-    }
-}
-
 class AlienShip {
     constructor(id, hull, firePower, accuracy) {
         this.id = id;
@@ -106,8 +43,8 @@ function getRandomInt(min, max) {
 }
 const alienCrew = []
 for (i = 1; i <= 6; i++) {
-    let {...newAlien} = new AlienShip(i);
-    // let newAlien = new AlienShip(i);
+    // let {...newAlien} = new AlienShip(i);
+    let newAlien = new AlienShip(i);
     alienCrew.push(newAlien)
 }
 
@@ -131,6 +68,59 @@ alienCrew.forEach(e => {
 
     document.querySelector('#alien-ship').appendChild(alienObject);
 });
+
+class MotherShip {
+    constructor(hull, firePower, accuracy) {
+        this.hull = hull;
+        this.firePower = firePower;
+        this.accuracy = accuracy
+    }
+    attack(alienId) {
+        let attackStatus = document.querySelector('#meseage h2')
+        alienCrew.forEach((e, index) => {
+            e["id"] == alienId ? check(index, this.accuracy, this.firePower) : null;
+        })
+         function check(index, accuracy, firePower) {
+            if (alienCrew.includes(alienCrew[index]) === true) {
+                if (Math.random() >= accuracy) {
+                    alienCrew[index].hull -= firePower;
+                    let test = `.a${alienId}`;
+                    if (alienCrew[index].hull <= 0) {
+                        function keepGoing() {
+                            attackStatus.innerText = 'Good Job Commander';
+                        }
+                        setTimeout(keepGoing, 3000);
+                        attackStatus.innerText = `the alien ship with id of ${alienId} has been destroyed`;
+                        alienCrew.splice(`${index}`, 1);
+                        // let test = `.a${alienId}`
+                        const selectedDiv = document.querySelector(test)
+                        selectedDiv.remove();
+                    } else {
+                        let test = `.a${alienId}`
+                        const selectedDiv = document.querySelector(test).childNodes;
+                        const alienHull = selectedDiv[0].childNodes;
+                        alienHull[1].textContent = `hull: ${alienCrew[index].hull}`;
+                        function keepGoing() {
+                            attackStatus.innerText = 'The alien ship is going to hit you back';
+                        }
+                        setTimeout(keepGoing, 3000);
+                        attackStatus.innerText = 'the mothership have hit the alien ship but it still alive';
+                        alienCrew[index].attack();
+                    }
+                } else {
+                    function keepGoing() {
+                        attackStatus.innerText = 'The alien ship is going to return the favor';
+                    }
+                    setTimeout(keepGoing, 3000);
+                    attackStatus.innerText = 'the mothership has miss the target';
+                    alienCrew[index].attack();
+                }
+            } 
+        }
+    }
+}
+
+
 
 const motherShip = new MotherShip(20, 5, 0.7);
 const element = document.querySelector('#form-div input:nth-of-type(2)');
